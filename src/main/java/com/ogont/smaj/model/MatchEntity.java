@@ -10,7 +10,7 @@ public class MatchEntity implements IGenericEntity<Integer>  {
     private Timestamp ctime;
     private Timestamp etime;
     private Boolean isRating;
-
+    private Integer winnerScore;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -50,6 +50,16 @@ public class MatchEntity implements IGenericEntity<Integer>  {
 
     public void setRating(Boolean rating) {
         isRating = rating;
+    }
+
+    @Basic
+    @Column(name = "winner_score")
+    public Integer getWinnerScore() {
+        return winnerScore;
+    }
+
+    public void setWinnerScore(Integer winnerScore) {
+        this.winnerScore = winnerScore;
     }
 
     @Override

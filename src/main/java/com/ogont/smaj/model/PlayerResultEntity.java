@@ -15,6 +15,7 @@ public class PlayerResultEntity implements IGenericEntity<Integer>  {
     private Integer faction2Id;
     private Integer score;
     private Integer mmrChange;
+    private Boolean isWinner;
 
     private MatchEntity matchEntity;
     private PlayerEntity playerEntity;
@@ -127,6 +128,17 @@ public class PlayerResultEntity implements IGenericEntity<Integer>  {
 
     public void setMmrChange(Integer mmrChange) {
         this.mmrChange = mmrChange;
+    }
+
+    @Basic
+    @Column(name = "is_winner")
+    public Boolean getWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(Boolean winner) {
+        if(winner == null) winner = false;
+        isWinner = winner;
     }
 
     @Override

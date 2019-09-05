@@ -1,0 +1,180 @@
+POST http://localhost:8091/match/true
+Content-Type: application/json;
+
+{
+  "matchEntity" : {
+    "ctime" :  1567649693,
+    "etime" : 1567664093000,
+    "Rating" :  true
+  },
+  "playerResultEntities" :
+          [
+            {
+              "playerId" : 1,
+              "faction1Id" : 1,
+              "faction2Id" : 2,
+              "score" : 15,
+              "winner" : false
+            },
+            {
+              "playerId" : 2,
+              "faction1Id" : 3,
+              "faction2Id" : 4,
+              "score" : 14,
+              "winner" : true
+            },
+            {
+              "playerId" : 3,
+              "faction1Id" : 5,
+              "faction2Id" : 6,
+              "score" : 13,
+              "winner" : false
+            },
+            {
+              "playerId" : 4,
+              "faction1Id" : 5,
+              "faction2Id" : 5,
+              "score" : 12,
+              "winner" : false
+            }
+
+          ]
+}
+
+###
+
+POST http://localhost:8091/match/true
+Content-Type: application/json;
+
+{
+  "matchEntity" : {
+    "ctime" :  1567649693,
+    "etime" : 1567664093000,
+    "Rating" :  true
+  },
+  "playerResultEntities" :
+          [
+            {
+              "playerId" : 1,
+              "faction1Id" : 1,
+              "faction2Id" : 2,
+              "score" : 15,
+              "Winner" : false
+            },
+            {
+              "playerId" : 2,
+              "faction1Id" : 3,
+              "faction2Id" : 4,
+              "score" : 14,
+              "Winner" : true
+            },
+            {
+              "playerId" : 3,
+              "faction1Id" : 5,
+              "faction2Id" : 6,
+              "score" : 13,
+              "Winner" : false
+            },
+            {
+              "playerId" : 4,
+              "faction1Id" : 5,
+              "faction2Id" : 5,
+              "score" : 12,
+              "Winner" : false
+            }
+
+          ]
+}
+
+<> 2019-09-05T112255.500.json
+
+###
+
+POST http://localhost:8091/match/true
+Content-Type: application/json;
+
+{
+  "matchEntity" : {
+    "ctime" :  1567649693,
+    "etime" : 1567664093000,
+    "Rating" :  true
+  },
+  "playerResultEntities" :
+          [
+            {
+              "playerId" : 1,
+              "faction1Id" : 1,
+              "faction2Id" : 2,
+              "score" : 15
+            },
+            {
+              "playerId" : 2,
+              "faction1Id" : 3,
+              "faction2Id" : 4,
+              "score" : 14,
+              "Winner" : true
+            },
+            {
+              "playerId" : 3,
+              "faction1Id" : 5,
+              "faction2Id" : 6,
+              "score" : 13
+            },
+            {
+              "playerId" : 4,
+              "faction1Id" : 5,
+              "faction2Id" : 5,
+              "score" : 12
+            }
+
+          ]
+}
+
+<> 2019-09-05T112206.500.json
+
+###
+
+POST http://localhost:8091/match/true
+Content-Type: application/json;
+
+{
+  "matchEntity" : {
+    "ctime" :  1567649693,
+    "etime" : 1567664093000,
+    "Rating" :  true
+  },
+  "playerResultEntities" :
+          [
+            {
+              "playerId" : 1,
+              "faction1Id" : 1,
+              "faction2Id" : 2,
+              "score" : 15
+            },
+            {
+              "playerId" : 2,
+              "faction1Id" : 3,
+              "faction2Id" : 4,
+              "score" : 14,
+              "Winner" : true
+            },
+            {
+              "playerId" : 3,
+              "faction1Id" : 5,
+              "faction2Id" : 6,
+              "score" : 13
+            },
+            {
+              "playerId" : 4,
+              "faction1Id" : 5,
+              "faction2Id" : 5,
+              "score" : 12
+            }
+
+          ]
+}
+
+<> 2019-09-05T112113.500.json
+
+###
+

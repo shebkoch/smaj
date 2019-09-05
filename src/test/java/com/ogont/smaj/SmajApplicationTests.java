@@ -1,6 +1,10 @@
 package com.ogont.smaj;
 
+import com.ogont.smaj.model.FactionEntity;
+import com.ogont.smaj.model.PlayerEntity;
 import com.ogont.smaj.model.PlayerResultEntity;
+import com.ogont.smaj.service.impl.PlayerResultService;
+import com.ogont.smaj.service.impl.PlayerService;
 import com.ogont.smaj.util.Pair;
 import com.ogont.smaj.util.PlacedList;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +14,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -105,4 +112,14 @@ public class SmajApplicationTests {
         }
     }
 
+
+    @Resource
+    PlayerService playerService;
+    @Resource
+    PlayerResultService playerResultService;
+    @Test
+    public void test5(){
+        List<PlayerEntity> entities = playerService.getAll();
+        Map<PlayerEntity, Map<FactionEntity, Integer>> playerFactionStat = playerResultService.getPlayerFactionStat(entities);
+    }
 }

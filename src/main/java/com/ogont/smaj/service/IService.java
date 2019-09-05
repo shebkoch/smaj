@@ -12,6 +12,15 @@ import java.util.stream.Collectors;
 public interface IService<T extends IGenericEntity<ID>, ID > {
     CrudRepository<T, ID> getRepository();
 
+    default List<T> getAll(){
+        List<T> list = new ArrayList<>();
+        Iterable<T> all = findAll();
+        for(T entity : all){
+            list.add(entity);
+        }
+        return list;
+    }
+
     default <S extends T> S save(S var1){
         return getRepository().save(var1);
     }

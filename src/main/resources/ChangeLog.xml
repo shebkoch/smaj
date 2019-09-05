@@ -145,4 +145,14 @@
             INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (16, 'Симпсоны', 0, 0, 0);
         </sql>
     </changeSet>
+    <changeSet author="alex" id="alex-10">
+        <sql>
+            alter table player_result
+            add is_winner boolean;
+
+            alter table match
+            add winner_score int;
+
+        </sql>
+    </changeSet>
 </databaseChangeLog>

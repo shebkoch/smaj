@@ -82,7 +82,9 @@ public class FullMatchService implements IFullMatchService {
                 FactionEntity factionEntity2 = result.getFactionEntity2();
                 FactionComboEntity factionComboEntity = factionComboService.findByFaction1IdAndFaction2Id(factionEntity1.getId(), factionEntity2.getId());
 
-                float mmrChange = PLACE_DEAL / 2.0f - PLACE_DEAL / (float) (playerResultEntities.size() + 1) * place;
+                float size = (float)  playerResultEntities.size() + 1;
+                float mmrChange = PLACE_DEAL / 2.0f - PLACE_DEAL / size * place;
+                if(result.getWinner()) mmrChange += place * PLACE_DEAL / size;
                 mmrChange += factionByScoreMmr(factionEntity1.getScore());
                 mmrChange += factionByScoreMmr(factionEntity2.getScore());
                 mmrChange += factionComboByScoreMmr(factionComboEntity.getScore());
@@ -109,6 +111,10 @@ public class FullMatchService implements IFullMatchService {
     }
     private PlayerResultEntity getWinner(FullMatch fullMatch){
         List<PlayerResultEntity> results = fullMatch.getPlayerResultEntities();
+        for(PlayerResultEntity entity : results){
+            if(entity.getWinner()) return entity;
+        }
+
         results.sort(comparingInt(PlayerResultEntity::getScore));
         return results.get(results.size() -1);
     }
