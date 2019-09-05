@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="1" author="alex-1">
+        <sql>
+            create table player
+            (
+            id serial not null
+            constraint player_pk
+            primary key,
+            name varchar,
+            match_count int,
+            win_count int,
+            mmr int,
+            best_faction int
+            );
+
+            create table faction
+            (
+            id serial not null
+            constraint faction_pk
+            primary key,
+            name varchar,
+            match_count int,
+            win_count int
+            );
+
+            create table faction_combo
+            (
+            id serial not null
+            constraint faction_combo_pk
+            primary key,
+            faction1_id int,
+            faction2_id int,
+            match_count int,
+            win_count int
+            );
+
+
+        </sql>
+    </changeSet>
+    <changeSet id="2" author="alex-2">
+        <sql>
+            create table player_result
+            (
+            id serial
+            constraint player_result_pk
+            primary key,
+            match_id int,
+            player_id int,
+            faction1_id int,
+            faction2_id int,
+            score int,
+            mmr_change int
+            );
+
+            create table match
+            (
+            id serial
+            constraint match_pk
+            primary key,
+            ctime timestamp,
+            etime timestamp,
+            is_rating bool
+            );
+
+
+        </sql>
+    </changeSet>
+    <changeSet id="3" author="alex-3">
+        <sql>
+            alter table faction_combo
+            add constraint faction_combo_faction_id_fk
+            foreign key (faction1_id) references faction;
+
+            alter table faction_combo
+            add constraint faction_combo_faction_id_fk_2
+            foreign key (faction2_id) references faction;
+
+            alter table player
+            add constraint player_faction_id_fk
+            foreign key (best_faction) references faction;
+
+            alter table player_result
+            add constraint player_result_faction_id_fk
+            foreign key (faction1_id) references faction;
+
+            alter table player_result
+            add constraint player_result_faction_id_fk_2
+            foreign key (faction2_id) references faction;
+
+            alter table player_result
+            add constraint player_result_match_id_fk
+            foreign key (match_id) references match;
+
+            alter table player_result
+            add constraint player_result_player_id_fk
+            foreign key (player_id) references player;
+        </sql>
+    </changeSet>
+    <changeSet author="alex" id="alex-6">
+        <sql>
+            alter table faction
+            add score decimal;
+            alter table faction_combo
+            add score decimal;
+        </sql>
+    </changeSet>
+    <changeSet id="alex-4" author="alex">
+        <sql>
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (1, 'Волшебники', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (2, 'Динозавры', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (3, 'Зомби', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (4, 'Ниндзя', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (5, 'Пираты', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (6, 'Пришельцы', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (7, 'Проказники', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (8, 'Мемы', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (9, 'Дота', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (10, 'Нумерологи', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (11, 'Игроки', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (12, 'Мафия', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (13, 'Демоны', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (14, 'Роботы', 0, 0, 0);
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (15, 'Глубоководные', 0, 0, 0);
+        </sql>
+    </changeSet>
+    <changeSet author="alex" id="alex-5">
+        <sql>
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (1, 'Саня', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (2, 'Илья', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (3, 'Сема', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (4, 'Серега', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (5, 'Валя', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (6, 'Леня', 0, 0, 2000, null);
+        </sql>
+    </changeSet>
+    <changeSet author="alex" id="alex-8">
+        <sql>
+            create unique index faction_name_uindex
+            on faction (name);
+        </sql>
+    </changeSet>
+    <changeSet author="alex" id="alex-9">
+        <sql>
+            INSERT INTO public.faction (id, name, match_count, win_count, score) VALUES (16, 'Симпсоны', 0, 0, 0);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
