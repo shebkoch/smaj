@@ -7,6 +7,7 @@ import com.ogont.smaj.repository.IPlayerResultRepository;
 import com.ogont.smaj.service.IFactionService;
 import com.ogont.smaj.service.IPlayerResultService;
 import com.ogont.smaj.service.IPlayerService;
+import com.ogont.smaj.util.Pair;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -39,14 +40,14 @@ public class PlayerResultService implements IPlayerResultService {
         List<PlayerResultEntity> entities = new ArrayList<>(repository.findAllByPlayerId(id));
 
         entities.sort(Comparator.comparing(x -> x.getMatchEntity().getEtime()));
-        return entities.get(0);
+        return entities.get(entities.size()-1);
     }
 
     @Override
-    public Map<PlayerEntity, Map<FactionEntity, Integer>> getPlayerFactionStat(List<PlayerEntity> players) {
-        Map<PlayerEntity, Map<FactionEntity, Integer>> resMap = new HashMap<>();
+    public Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> getPlayerFactionStat(List<PlayerEntity> players) {
+        Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> resMap = new HashMap<>();
         for (PlayerEntity player : players) {
-            Map<FactionEntity, Integer> factionMap;
+            Map<FactionEntity, Pair<Integer, Integer>> factionMap;
             if (resMap.containsKey(player)) factionMap = resMap.get(player);
             else {
                 factionMap = new HashMap<>();
@@ -60,10 +61,11 @@ public class PlayerResultService implements IPlayerResultService {
                 FactionEntity factionEntity2 = result.getFactionEntity2();
 
                 if (!factionMap.containsKey(factionEntity1))
-                    factionMap.put(factionEntity1, 0);
+                    factionMap.put(factionEntity1, new Pair<>(0,0));
                 if (!factionMap.containsKey(factionEntity2))
-                    factionMap.put(factionEntity2, 0);
+                    factionMap.put(factionEntity2, new Pair<>(0,0));
 
+                //TODO:
                 factionMap.put(factionEntity1, factionMap.get(factionEntity1) + 1);
                 factionMap.put(factionEntity2, factionMap.get(factionEntity2) + 1);
             }

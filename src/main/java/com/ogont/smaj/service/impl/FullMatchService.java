@@ -20,6 +20,7 @@ public class FullMatchService implements IFullMatchService {
     public static final float FACTION_COMBO_MULTIPLIER = -0.5f;
     public static final int SCORE_MULTIPLIER = 2;
     public static final float DURATION_MULTIPLIER = 0.015f;
+    public static final double WINNER_EXTRA_DEAL = 1.1;
     @Resource
     IMatchService matchService;
     @Resource
@@ -44,6 +45,10 @@ public class FullMatchService implements IFullMatchService {
         results = playerResultService.refresh(results);
 
         PlayerResultEntity winner = getWinner(fullMatch);
+        PlacedList<PlayerResultEntity> placedList = getPlacedList(results);
+        MatchEntity matchEntity = fullMatch.getMatchEntity();
+        matchEntity.setWinnerScore(placedList.maxScore());
+        matchService.save(matchEntity);
 
         for(PlayerResultEntity playerResultEntity : results){
             FactionEntity factionEntity1 = playerResultEntity.getFactionEntity1();
@@ -55,6 +60,8 @@ public class FullMatchService implements IFullMatchService {
             factionService.computeScoreAndSave(factionEntity2, isWinner, size);
 
             factionComboService.computeScoreAndSave(factionEntity1.getId(),factionEntity2.getId(), isWinner, size);
+
+
 
             PlayerEntity playerEntity = playerResultEntity.getPlayerEntity();
             playerEntity.setMatchCount(playerEntity.getMatchCount() + 1);
@@ -82,9 +89,9 @@ public class FullMatchService implements IFullMatchService {
                 FactionEntity factionEntity2 = result.getFactionEntity2();
                 FactionComboEntity factionComboEntity = factionComboService.findByFaction1IdAndFaction2Id(factionEntity1.getId(), factionEntity2.getId());
 
-                float size = (float)  playerResultEntities.size() + 1;
+                float size = (float)  playerResultEntities.size() - 1;
                 float mmrChange = PLACE_DEAL / 2.0f - PLACE_DEAL / size * place;
-                if(result.getWinner()) mmrChange += place * PLACE_DEAL / size;
+                if(result.getWinner()) mmrChange += place * PLACE_DEAL / size * WINNER_EXTRA_DEAL;
                 mmrChange += factionByScoreMmr(factionEntity1.getScore());
                 mmrChange += factionByScoreMmr(factionEntity2.getScore());
                 mmrChange += factionComboByScoreMmr(factionComboEntity.getScore());
