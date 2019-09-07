@@ -137,7 +137,6 @@ public class PlayerResultEntity implements IGenericEntity<Integer>  {
     }
 
     public void setWinner(Boolean winner) {
-        if(winner == null) winner = false;
         isWinner = winner;
     }
 

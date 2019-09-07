@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.*;
 
+import static java.util.Collections.singletonList;
+
 @Component
 public class PlayerResultService implements IPlayerResultService {
     @Resource
@@ -23,6 +25,7 @@ public class PlayerResultService implements IPlayerResultService {
     IPlayerService playerService;
     @Resource
     IFactionService factionService;
+
 
     @Override
     public List<PlayerResultEntity> refresh(List<PlayerResultEntity> resultEntities) {
@@ -40,9 +43,14 @@ public class PlayerResultService implements IPlayerResultService {
         List<PlayerResultEntity> entities = new ArrayList<>(repository.findAllByPlayerId(id));
 
         entities.sort(Comparator.comparing(x -> x.getMatchEntity().getEtime()));
-        return entities.get(entities.size()-1);
+        if(entities.size() > 0)
+            return entities.get(entities.size()-1);
+        else return null;
     }
 
+    /**
+     * @return faction, pair<matches,win>
+     */
     @Override
     public Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> getPlayerFactionStat(List<PlayerEntity> players) {
         Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> resMap = new HashMap<>();
@@ -66,11 +74,43 @@ public class PlayerResultService implements IPlayerResultService {
                     factionMap.put(factionEntity2, new Pair<>(0,0));
 
                 //TODO:
-                factionMap.put(factionEntity1, factionMap.get(factionEntity1) + 1);
-                factionMap.put(factionEntity2, factionMap.get(factionEntity2) + 1);
+                Pair<Integer, Integer> pair1 = factionMap.get(factionEntity1);
+                Pair<Integer, Integer> pair2= factionMap.get(factionEntity2);
+
+                if(result.getWinner()){
+                    pair1.setValue(pair1.getValue()+1);
+                    pair2.setValue(pair2.getValue()+1);
+                }
+                pair1.setKey(pair1.getKey()+1);
+                pair2.setKey(pair2.getKey()+1);
+                factionMap.put(factionEntity1, pair1);
+                factionMap.put(factionEntity2, pair2);
             }
         }
         return resMap;
+    }
+
+    @Override
+    public FactionEntity getBestFaction(PlayerEntity playerEntity) {
+        Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> playerFactionStat = getPlayerFactionStat(singletonList(playerEntity));
+        Map<FactionEntity, Pair<Integer, Integer>> factionEntityPairMap = playerFactionStat.get(playerEntity);
+        Pair<Double,FactionEntity> result = new Pair<>(-1D, null);
+        for(Map.Entry<FactionEntity, Pair<Integer, Integer>> entry : factionEntityPairMap.entrySet()){
+            FactionEntity factionEntity = entry.getKey();
+            Pair<Integer, Integer> pair = entry.getValue();
+
+            Double score = (double) pair.getValue() / pair.getKey();
+            if(score > result.getKey()){
+                result.setKey(score);
+                result.setValue(factionEntity);
+            }
+        }
+        return result.getValue();
+    }
+
+    @Override
+    public List<PlayerResultEntity> findAllByPlayerId(Integer id) {
+        return repository.findAllByPlayerId(id);
     }
 
     @Override

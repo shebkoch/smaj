@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 public class PlayerResultController {
@@ -20,8 +21,14 @@ public class PlayerResultController {
 
     @GetMapping("/last_info/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public PlayerResultEntity lastInfo(@PathVariable Integer id){
+    public @ResponseBody PlayerResultEntity lastInfo(@PathVariable Integer id){
         return playerResultService.getLast(id);
+    }
+
+    @GetMapping("/results/{id}")
+    @ResponseStatus(HttpStatus.OK)
+
+    public @ResponseBody List<PlayerResultEntity> getAll(@PathVariable Integer id){
+        return playerResultService.findAllByPlayerId(id);
     }
 }

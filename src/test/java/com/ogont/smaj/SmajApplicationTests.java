@@ -120,6 +120,6 @@ public class SmajApplicationTests {
     @Test
     public void test5(){
         List<PlayerEntity> entities = playerService.getAll();
-        Map<PlayerEntity, Map<FactionEntity, Integer>> playerFactionStat = playerResultService.getPlayerFactionStat(entities);
+        Map<PlayerEntity, Map<FactionEntity, Pair<Integer, Integer>>> playerFactionStat = playerResultService.getPlayerFactionStat(entities);
     }
 }

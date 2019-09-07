@@ -68,6 +68,8 @@ public class FullMatchService implements IFullMatchService {
             if(isWinner){
                 playerEntity.setWinCount(playerEntity.getWinCount() + 1);
             }
+            FactionEntity best = playerResultService.getBestFaction(playerEntity);
+            playerEntity.setBestFaction(best.getId());
             playerService.save(playerEntity);
         }
         results = playerResultService.refresh(results);
