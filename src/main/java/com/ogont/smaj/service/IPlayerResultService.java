@@ -17,4 +17,5 @@ public interface IPlayerResultService extends IService<PlayerResultEntity,Intege
 
     FactionEntity getBestFaction(PlayerEntity playerEntity);
     List<PlayerResultEntity> findAllByPlayerId(Integer id);
+    List<PlayerResultEntity> findAllByMatchId(Integer id);
 }

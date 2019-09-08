@@ -128,10 +128,10 @@
         <sql>
             INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (1, 'Саня', 0, 0, 2000, null);
             INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (2, 'Илья', 0, 0, 2000, null);
-            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (3, 'Сема', 0, 0, 2000, null);
-            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (4, 'Серега', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (3, 'Сёма', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (4, 'Серёга', 0, 0, 2000, null);
             INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (5, 'Валя', 0, 0, 2000, null);
-            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (6, 'Леня', 0, 0, 2000, null);
+            INSERT INTO public.player (id, name, match_count, win_count, mmr, best_faction) VALUES (6, 'Лёня', 0, 0, 2000, null);
         </sql>
     </changeSet>
     <changeSet author="alex" id="alex-8">

@@ -69,7 +69,7 @@ public class FactionEntity implements IGenericEntity<Integer> {
 
         FactionEntity that = (FactionEntity) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (matchCount != null ? !matchCount.equals(that.matchCount) : that.matchCount != null) return false;
         if (winCount != null ? !winCount.equals(that.winCount) : that.winCount != null) return false;

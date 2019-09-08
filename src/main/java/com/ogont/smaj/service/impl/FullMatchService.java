@@ -40,6 +40,17 @@ public class FullMatchService implements IFullMatchService {
         if(isEnd) endSave(fullMatch);
         return fullMatch;
     }
+
+    @Override
+    public FullMatch getByMatchId(Integer id) {
+        MatchEntity matchEntity = matchService.findById(id).get();
+        List<PlayerResultEntity> entities = playerResultService.findAllByMatchId(matchEntity.getId());
+        FullMatch fullMatch = new FullMatch();
+        fullMatch.setMatchEntity(matchEntity);
+        fullMatch.setPlayerResultEntities(entities);
+        return fullMatch;
+    }
+
     private FullMatch endSave(FullMatch fullMatch){
         List<PlayerResultEntity> results = fullMatch.getPlayerResultEntities();
         results = playerResultService.refresh(results);

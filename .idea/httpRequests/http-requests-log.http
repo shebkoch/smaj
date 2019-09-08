@@ -1,3 +1,46 @@
+POST http://localhost:8091/match/true
+Content-Type: application/json
+
+{
+  "matchEntity": {
+    "ctime": 1567330456000,
+    "etime": 1567339696000,
+    "rating": true
+  },
+  "playerResultEntities": [
+    {
+      "playerId": 1,
+      "faction1Id": 5,
+      "faction2Id": 7,
+      "score": 11,
+      "winner": false
+    },
+    {
+      "playerId": 3,
+      "faction1Id": 12,
+      "faction2Id": 16,
+      "score": 12,
+      "winner": false
+    },
+    {
+      "playerId": 2,
+      "faction1Id": 1,
+      "faction2Id": 8,
+      "score": 14,
+      "winner": false
+    },
+    {
+      "playerId": 6,
+      "faction1Id": 11,
+      "faction2Id": 2,
+      "score": 18,
+      "winner": true
+    }
+  ]
+}
+
+###
+
 GET http://localhost:8091/players
 
 <> 2019-09-07T092554.500.json

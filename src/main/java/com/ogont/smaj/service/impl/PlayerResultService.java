@@ -114,6 +114,11 @@ public class PlayerResultService implements IPlayerResultService {
     }
 
     @Override
+    public List<PlayerResultEntity> findAllByMatchId(Integer id) {
+        return repository.findAllByMatchId(id);
+    }
+
+    @Override
     public CrudRepository<PlayerResultEntity, Integer> getRepository() {
         return repository;
     }

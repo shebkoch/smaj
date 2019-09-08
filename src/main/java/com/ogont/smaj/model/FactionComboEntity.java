@@ -95,7 +95,7 @@ public class FactionComboEntity implements IGenericEntity<Integer>{
 
         FactionComboEntity that = (FactionComboEntity) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (matchCount != null ? !matchCount.equals(that.matchCount) : that.matchCount != null) return false;
         if (winCount != null ? !winCount.equals(that.winCount) : that.winCount != null) return false;
         if (score != null ? !score.equals(that.score) : that.score != null) return false;

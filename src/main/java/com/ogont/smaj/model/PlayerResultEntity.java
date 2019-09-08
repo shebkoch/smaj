@@ -147,7 +147,7 @@ public class PlayerResultEntity implements IGenericEntity<Integer>  {
 
         PlayerResultEntity that = (PlayerResultEntity) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (matchId != null ? !matchId.equals(that.matchId) : that.matchId != null) return false;
         if (playerId != null ? !playerId.equals(that.playerId) : that.playerId != null) return false;
         if (faction1Id != null ? !faction1Id.equals(that.faction1Id) : that.faction1Id != null) return false;

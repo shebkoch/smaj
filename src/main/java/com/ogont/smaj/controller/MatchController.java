@@ -1,13 +1,7 @@
 package com.ogont.smaj.controller;
 
-import com.ogont.smaj.model.FullMatch;
-import com.ogont.smaj.model.MatchEntity;
-import com.ogont.smaj.model.PlayerEntity;
-import com.ogont.smaj.model.PlayerResultEntity;
-import com.ogont.smaj.service.IFullMatchService;
-import com.ogont.smaj.service.IMatchService;
-import com.ogont.smaj.service.IPlayerResultService;
-import com.ogont.smaj.service.IPlayerService;
+import com.ogont.smaj.model.*;
+import com.ogont.smaj.service.*;
 import com.ogont.smaj.service.impl.PlayerResultService;
 import com.ogont.smaj.util.Pair;
 import com.ogont.smaj.util.PlacedList;
@@ -17,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MatchController {
@@ -27,10 +19,42 @@ public class MatchController {
     IFullMatchService fullMatchService;
     @Resource
     PlayerResultService playerResultService;
+    @Resource
+    IMatchService matchService;
+    @Resource
+    IFactionDistributorService factionDistributorService;
 
     @PostMapping("/match/{isEndString}")
     @ResponseStatus(HttpStatus.OK)
     public void matchSave(@RequestBody FullMatch match, @PathVariable String isEndString) {
         fullMatchService.save(match, isEndString.equals("true"));
+    }
+    @RequestMapping(value = "/distribute", method = RequestMethod.OPTIONS)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<Pair<PlayerEntity, FactionComboEntity>> distribute(@RequestBody DistributeData data) {
+        return distribute2(data);
+    }
+    @RequestMapping(value = "/distribute", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<Pair<PlayerEntity, FactionComboEntity>> distribute2(@RequestBody DistributeData data) {
+        Map<PlayerEntity, FactionComboEntity> map = factionDistributorService.distribute(data);
+        List<Pair<PlayerEntity, FactionComboEntity>> list = new ArrayList<>();
+        for(Map.Entry<PlayerEntity, FactionComboEntity> entry : map.entrySet()){
+            list.add(new Pair<>(entry.getKey(), entry.getValue()));
+        }
+        return list;
+    }
+
+    @GetMapping("/match/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody FullMatch getMatch(@PathVariable Integer id) {
+        return fullMatchService.getByMatchId(id);
+    }
+    @GetMapping("/matches")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<MatchEntity> getMatches() {
+        List<MatchEntity> list = matchService.getAll();
+        list.sort((x,y) -> y.getEtime().compareTo(x.getEtime()));
+        return list;
     }
 }

@@ -69,7 +69,7 @@ public class MatchEntity implements IGenericEntity<Integer>  {
 
         MatchEntity that = (MatchEntity) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (ctime != null ? !ctime.equals(that.ctime) : that.ctime != null) return false;
         if (etime != null ? !etime.equals(that.etime) : that.etime != null) return false;
         if (isRating != null ? !isRating.equals(that.isRating) : that.isRating != null) return false;
