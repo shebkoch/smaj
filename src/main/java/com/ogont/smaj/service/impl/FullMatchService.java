@@ -50,6 +50,18 @@ public class FullMatchService implements IFullMatchService {
         fullMatch.setPlayerResultEntities(entities);
         return fullMatch;
     }
+    @Override
+    public List<FullMatch> getAll(){
+        List<MatchEntity> matches = matchService.getAll();
+        List<FullMatch> res = new ArrayList<>();
+        for(MatchEntity matchEntity : matches){
+            FullMatch fullMatch = new FullMatch();
+            fullMatch.setMatchEntity(matchEntity);
+            fullMatch.setPlayerResultEntities(playerResultService.findAllByMatchId(matchEntity.getId()));
+            res.add(fullMatch);
+        }
+        return res;
+    }
 
     private FullMatch endSave(FullMatch fullMatch){
         List<PlayerResultEntity> results = fullMatch.getPlayerResultEntities();
@@ -151,4 +163,5 @@ public class FullMatchService implements IFullMatchService {
         }
         return placedList;
     }
+
 }

@@ -53,9 +53,9 @@ public class MatchController {
 
     @GetMapping("/matches")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody List<MatchEntity> getMatches() {
-        List<MatchEntity> list = matchService.getAll();
-        list.sort(Comparator.comparing(MatchEntity::getEtime).reversed());
+    public @ResponseBody List<FullMatch> getMatches() {
+        List<FullMatch> list = fullMatchService.getAll();
+        list.sort(Comparator.comparing(x->x.getMatchEntity().getEtime(), Comparator.reverseOrder()));
         return list;
     }
 }
