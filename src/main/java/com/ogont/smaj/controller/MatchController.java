@@ -50,11 +50,12 @@ public class MatchController {
     public @ResponseBody FullMatch getMatch(@PathVariable Integer id) {
         return fullMatchService.getByMatchId(id);
     }
+
     @GetMapping("/matches")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<MatchEntity> getMatches() {
         List<MatchEntity> list = matchService.getAll();
-        list.sort((x,y) -> y.getEtime().compareTo(x.getEtime()));
+        list.sort(Comparator.comparing(MatchEntity::getEtime).reversed());
         return list;
     }
 }
