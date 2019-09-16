@@ -48,7 +48,7 @@ public class FactionComboEntity implements IGenericEntity<Integer>{
     }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getId() {
         return id;

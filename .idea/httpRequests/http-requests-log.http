@@ -1,3 +1,144 @@
+POST http://smaj.tk:8080/smaj/match/true
+Content-Type: application/json
+
+{
+"matchEntity": {
+"ctime": 1568539805000,
+"etime": 1568547005000,
+"rating": true
+},
+"playerResultEntities": [
+{
+"playerId": 1,
+"faction1Id": 11,
+"faction2Id": 3,
+"score": 15,
+"winner": true
+},
+{
+"playerId": 3,
+"faction1Id": 9,
+"faction2Id": 5,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 6,
+"faction1Id": 10,
+"faction2Id": 17,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 4,
+"faction1Id": 19,
+"faction2Id": 13,
+"score": 15,
+"winner": false
+}
+]
+}
+
+<> 2019-09-16T100807.500.json
+
+###
+
+POST http://smaj.tk:8080/smaj/match/true
+Content-Type: application/json
+
+{
+"matchEntity": {
+"ctime": 1568539805000,
+"etime": 1568547005000,
+"rating": true
+},
+"playerResultEntities": [
+{
+"playerId": 1,
+"faction1Id": 11,
+"faction2Id": 3,
+"score": 15,
+"winner": true
+},
+{
+"playerId": 3,
+"faction1Id": 9,
+"faction2Id": 5,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 6,
+"faction1Id": 10,
+"faction2Id": 17,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 4,
+"faction1Id": 19,
+"faction2Id": 13,
+"score": 15,
+"winner": false
+}
+]
+}
+
+<> 2019-09-16T100057.500.json
+
+###
+
+POST http://smaj.tk:8080/match/true
+Content-Type: application/json
+
+{
+"matchEntity": {
+"ctime": 1568539805000,
+"etime": 1568547005000,
+"rating": true
+},
+"playerResultEntities": [
+{
+"playerId": 1,
+"faction1Id": 11,
+"faction2Id": 3,
+"score": 15,
+"winner": true
+},
+{
+"playerId": 3,
+"faction1Id": 9,
+"faction2Id": 5,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 6,
+"faction1Id": 10,
+"faction2Id": 17,
+"score": 12,
+"winner": false
+},
+{
+"playerId": 4,
+"faction1Id": 19,
+"faction2Id": 13,
+"score": 15,
+"winner": false
+}
+]
+}
+
+<> 2019-09-16T100039.404.html
+
+###
+
+GET http://localhost:8091/factions
+
+<> 2019-09-11T102850.401.json
+
+###
+
 POST http://localhost:8091/match/true
 Content-Type: application/json
 

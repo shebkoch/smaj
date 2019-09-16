@@ -13,7 +13,7 @@ public class MatchEntity implements IGenericEntity<Integer>  {
     private Integer winnerScore;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     public Integer getId() {
         return id;
     }

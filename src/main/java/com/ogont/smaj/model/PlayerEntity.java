@@ -26,7 +26,7 @@ public class PlayerEntity implements IGenericEntity<Integer>  {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     public Integer getId() {
         return id;
     }
